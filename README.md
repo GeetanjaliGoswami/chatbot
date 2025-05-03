@@ -1,1 +1,2 @@
 # chatbot
+This is a browser-based virtual assistant built using HTML, CSS, and JavaScript. It responds to user queries with predefined answers, opens popular websites, tells the current date and time, and uses speech synthesis to read responses aloud. For unknown questions, it automatically performs a Google search and opens the results in a new tab while displaying the question and a fallback message below the input field. The assistant is fully functional without requiring any backend or internet for basic features.
