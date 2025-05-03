@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Geetanjali Assistant</title>
+  <style>
+    body {
+      background: #75afe2;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #a018b3;
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 20px;
+      width: 300px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #b38383;
+    }
+    button {
+      background-color: #a9cd7d;
+      color: rgb(154, 94, 159);
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .response {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #34495e;
+    }
+  </style>
+</head>
+<body>
+  <h1>Geetanjali's Assistant</h1>
+  <input type="text" id="commandInput" placeholder="Ask me anything..." />
+  <br />
+  <button onclick="handleCommand()">Submit</button>
+  <div class="response" id="responseOutput"></div>
+
+  <script>
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(utterance);
+    }
+
+    function handleCommand() {
+      const input = document.getElementById("commandInput").value.trim().toLowerCase();
+      const output = document.getElementById("responseOutput");
+      const now = new Date();
+
+      let knownAnswers = {
+        "what is the capital of india": "The capital of India is New Delhi.",
+        "who is the prime minister of india": "The Prime Minister of India is Narendra Modi.",
+        "what is the largest planet": "The largest planet in our solar system is Jupiter.",
+        "who is the president of usa": "The President of the USA is Joe Biden.",
+        "how many states are in india": "India has 28 states and 8 union territories.",
+        "what is the speed of light": "The speed of light is approximately 299,792 kilometers per second."
+      };
+
+      let response = "";
+
+      if (!input) {
+        response = "Please enter a command.";
+      } else if (input === "hi" || input === "hello" || input === "hey") {
+        response = "Hello sir!";
+      } else if (input === "bye" || input === "exit") {
+        response = "Goodbye sir, have a nice day!";
+      } else if (input === "about" || input === "who are you") {
+        response = "I am a virtual assistant created by Geetanjali.";
+      } else if (input === "time" || input === "date") {
+        response = "The current time is " + now.toLocaleString();
+      } else if (input === "open google") {
+        response = "Opening Google in a new tab.";
+        window.open("https://www.google.com", "_blank");
+      } else if (input === "open youtube") {
+        response = "Opening YouTube.";
+        window.open("https://www.youtube.com", "_blank");
+      } else if (input === "open instagram") {
+        response = "Opening Instagram.";
+        window.open("https://www.instagram.com", "_blank");
+      } else if (knownAnswers[input]) {
+        response = knownAnswers[input]; // Show known answer
+      } else {
+        const query = encodeURIComponent(input);
+        const searchURL = `https://www.google.com/search?q=${query}`;
+        window.open(searchURL, "_blank");
+        response = `I couldn't find a direct answer, but I searched this on Google: "${input}"`;
+      }
+
+      output.textContent = response;
+      speak(response);
+    }
+  </script>
+</body>
+</html>
